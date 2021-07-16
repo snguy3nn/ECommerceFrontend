@@ -24,7 +24,8 @@ class App extends Component {
                 <Switch>
                     <Route path="/" exact component={LandingPage} />
                     <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
+                    <Route path="/register" component={Register} /> 
+                    {/* ^redirect if logged in? */}
                     <Route path='/newListing' 
                     render={props => {
                         if (!this.user){
