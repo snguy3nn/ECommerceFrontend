@@ -15,7 +15,7 @@ export default function SearchBar(){
         let searchResults = {...values};
         console.log(searchResults);
         try{
-            let response = await axios.post('https://localhost:44394/api/games/all', searchResults)
+            let response = await axios.get('https://localhost:44394/api/games/all', searchResults)
             console.log(response.data);
             setRedirect(true);
         }
@@ -37,7 +37,7 @@ export default function SearchBar(){
                 </Form>
             </React.Fragment>
             :
-            <Redirect to="/" />}
+            <Redirect to="/searchresults" />}
         </React.Fragment>
     )
 }
