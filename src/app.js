@@ -3,6 +3,8 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/Login/login';
 import Register from './components/Register/register';
 import LandingPage from './components/LandingPage/landingPage';
+import jwtDecode from 'jwt-decode';
+import NewListing from './components/NewListing/newListing'
 
 class App extends Component {
     state = { 
