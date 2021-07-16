@@ -13,7 +13,6 @@ export default function Login(){
 
     async function submitForm(){
         let loggedInUser = {...values};
-        console.log(loggedInUser);
         try{
             let response = await axios.post('https://localhost:44394/api/authentication/login', loggedInUser);
             let token = response.data.token;
@@ -21,7 +20,7 @@ export default function Login(){
             setRedirect(true);
         }
         catch(err){
-            if (err.response.status === 401){
+            if (err.response.status && err.response.status === 401){
                 alert("Incorrect username or password!")
             }
             else{
