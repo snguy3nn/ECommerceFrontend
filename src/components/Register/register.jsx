@@ -13,8 +13,8 @@ export default function Register(){
     async function submitForm(){
         let newUser = {...values};
         console.log(newUser);
-        let response = await axios.post('https://localhost:44394/api/authentication', newUser);
         try{
+            let response = await axios.post('https://localhost:44394/api/authentication', newUser);
             console.log(response.data);
             setRedirect(true);
         }
@@ -60,7 +60,7 @@ export default function Register(){
                         <Button type="submit">Submit</Button>
                     </Form>
                 </div>
-            : <Redirect to="/"/>}
+            : <Redirect to="/login"/>}
         </React.Fragment>
     )
 }
