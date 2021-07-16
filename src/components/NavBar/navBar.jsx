@@ -20,13 +20,16 @@ export default function NavBar(props){
                     <Navbar.Brand>Gamebay</Navbar.Brand>
                     <Nav>
                         <Nav.Item> 
+                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item> 
                             <Nav.Link as={Link} to="/newListing">New Listing</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             <Nav.Link as={Link} to="/cart">My Cart</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                        <Button onClick={() => props.logout()} >Logout</Button>
+                            <Button variant='danger' onClick={() => props.logout()} >Logout</Button>
                         </Nav.Item>
                     </Nav>
                 </Container>
