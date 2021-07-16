@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
+import SearchBar from '../SearchBar/searchBar';
 
 
 export default function LandingPage(props){
@@ -17,6 +18,9 @@ export default function LandingPage(props){
 
     return(
         <React.Fragment>
+            <div>
+                <SearchBar />
+            </div>
             {/* <NavBar user={user}/> */}
             {user ? 
             <h1> Logged in </h1>

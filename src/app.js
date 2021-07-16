@@ -6,6 +6,7 @@ import LandingPage from './components/LandingPage/landingPage';
 import jwtDecode from 'jwt-decode';
 import NewListing from './components/NewListing/newListing'
 
+
 class App extends Component {
     state = { 
         user: null,
