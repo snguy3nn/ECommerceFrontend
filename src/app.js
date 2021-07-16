@@ -9,21 +9,25 @@ import NavBar from './components/NavBar/navBar';
 
 //NOTES Friday July 16
 //User login triggers redirect to LandingPage. LandingPage checks for token; renders appropriate page. 
-//Since NavBar is on App component, NavBar does NOT re-render on login. Requires refresh to pass new 'user' prop and render accordingly.
-//Likewise, logging OUT does NOT trigger re-render of LandingPage. Requires refresh after logout. 
+//BUT since NavBar is on App component, NavBar does NOT re-render on login. Requires refresh to pass new 'user' prop and render accordingly.
+//Likewise, logging OUT does NOT trigger re-render of LandingPage. Requires refresh after logout in order to show appropriate landing page.
+
+//**Just redirect all logged-out users to a login page with a link to register!!** Avoids conditional rendering for logged in/out
 
 export default function App(){
 
     const [user, setUser] = useState(null);
 
-   useEffect(() => {
-    const jwt = localStorage.getItem('token');
-    try{
-        const user = jwtDecode(jwt);
-        setUser(user);
-        }
-    catch{}
-    }, []);
+   useEffect(() => {getToken()}, []);
+
+    const getToken = () => {
+        const jwt = localStorage.getItem('token');
+        try{
+            const user = jwtDecode(jwt);
+            setUser(user);
+            }
+        catch{} 
+    }
 
     const logout = () =>{
         localStorage.removeItem('token');
@@ -34,10 +38,9 @@ export default function App(){
         <div>
             <NavBar user={user} logout={logout}/>
             <Switch>
-                <Route path="/" exact component={LandingPage} />
-                <Route path="/login" component={Login} />
-                <Route path="/register" component={Register} /> 
-                {/* ^redirect if logged in? */}
+                <Route path="/" exact render={(props) => (<LandingPage {...props} user={user}/>)} />
+                <Route path="/login" render={(props) => (<Login {...props} getToken={getToken}/>)} />
+                <Route path="/register" component={Register} />
                 <Route 
                     path='/newListing' 
                     render={props => {

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useState } from 'react';
 import { Redirect } from 'react-router';
 
-export default function Login(){
+export default function Login(props){
     const { values, handleChange, handleSubmit } = useForm(submitForm);
     const [redirect, setRedirect] = useState(false);
 
@@ -17,17 +17,13 @@ export default function Login(){
             let response = await axios.post('https://localhost:44394/api/authentication/login', loggedInUser);
             let token = response.data.token;
             localStorage.setItem('token', token);
+            props.getToken();
             setRedirect(true);
         }
         catch(err){
-            if (err.response.status && err.response.status === 401){
-                alert("Incorrect username or password!")
-            }
-            else{
-                console.log(err);
-            }
+            // if (err.response.status && err.response.status === 401){
+            alert(err);
         }
-        
     }
 
     return(

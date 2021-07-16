@@ -32,7 +32,19 @@ export default function NavBar(props){
                 </Container>
             </Navbar>
             :
-            <p>navbar if logged out</p> }
+            <Navbar>
+                <Container>
+                    <Navbar.Brand>Gamebay</Navbar.Brand>
+                    <Nav>
+                        <Nav.Item> 
+                            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item> 
+                            <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Container>
+            </Navbar> }
         </React.Fragment>
     )
 
