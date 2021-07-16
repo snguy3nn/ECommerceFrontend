@@ -38,7 +38,7 @@ export default function Register(){
                 </Form.Group>
                 <Form.Group controlId="password">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" name="password" onChange={handleChange} value={values.password} required={true} />
+                    <Form.Control type="password" name="password" pattern="(?=.*\d)" placeholder="Must contain at least one number" onChange={handleChange} value={values.password} required={true} />
                 </Form.Group>
                 <Form.Group controlId="email">
                     <Form.Label>Email address</Form.Label>
