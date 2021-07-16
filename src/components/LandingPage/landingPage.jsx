@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
+
 
 export default function LandingPage(props){
     const [user, setUser] = useState(null);
