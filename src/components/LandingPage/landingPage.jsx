@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { useState, useEffect } from 'react';
+import jwtDecode from 'jwt-decode';
+
 
 export default function LandingPage(props){
     const [user, setUser] = useState(null);
@@ -17,7 +19,7 @@ export default function LandingPage(props){
         <React.Fragment>
             {/* <NavBar user={user}/> */}
             {user ? 
-            <h1> hello user </h1>
+            <h1> Logged in </h1>
             :
             <h1>Not logged in</h1>}
         </React.Fragment>
