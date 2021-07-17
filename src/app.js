@@ -3,9 +3,11 @@ import { Switch, Route, Redirect } from 'react-router-dom';
 import Login from './components/Login/login';
 import Register from './components/Register/register';
 import LandingPage from './components/LandingPage/landingPage';
+import SearchResults from './components/SearchResults/searchResults';
 import jwtDecode from 'jwt-decode';
 import NewListing from './components/NewListing/newListing';
 import NavBar from './components/NavBar/navBar';
+import Cart from './components/Cart/cart'
 
 
 export default function App(){
@@ -34,6 +36,7 @@ export default function App(){
             <Switch>
                 <Route path="/" exact render={(props) => (<LandingPage {...props} user={user}/>)} />
                 <Route path="/login" render={(props) => (<Login {...props} getToken={getToken}/>)} />
+                <Route path="/searchResults" render={(props) => (<SearchResults {...props} user={user}/>)} />
                 <Route path="/register" component={Register} />
                 <Route 
                     path='/newListing' 
@@ -43,6 +46,16 @@ export default function App(){
                         }
                         else{
                             return <NewListing {...props} user={user}/>
+                        }
+                    }} />
+                <Route 
+                    path='/cart' 
+                    render={props => {
+                        if (!user){
+                            return <Redirect to="/" />;
+                        }
+                        else{
+                            return <Cart {...props} user={user}/>
                         }
                     }} />
             </Switch>

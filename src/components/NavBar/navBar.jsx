@@ -40,6 +40,9 @@ export default function NavBar(props){
                     <Navbar.Brand>Gamebay</Navbar.Brand>
                     <Nav>
                         <Nav.Item> 
+                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item> 
                             <Nav.Link as={Link} to="/login">Login</Nav.Link>
                         </Nav.Item>
                         <Nav.Item> 
