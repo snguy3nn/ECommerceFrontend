@@ -62,10 +62,11 @@ export default function NewListing(props){
     }
 
     return(
-        <div className='text-center'>
+        <div className='row text-center'>
             {redirect && 
             <Redirect to={{pathname: '/game', state: { gameId: newGameId}}} /> }
-            <div>
+            <div className='col' />
+            <div className='col'>
                 <h1>New Listing</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="Name">
@@ -81,7 +82,7 @@ export default function NewListing(props){
                         </Form.Group>
                         <Form.Group controlId="Description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" name="Description" onChange={handleChange} value={values.Description} required={true} />
+                            <Form.Control type="text" as="textarea" rows={3} name="Description" onChange={handleChange} value={values.Description} required={true} />
                         </Form.Group>
                         {platforms && 
                             <Form.Group controlId="platformName">
@@ -94,6 +95,7 @@ export default function NewListing(props){
                         <Button type="submit">Submit</Button>
                     </Form>
                 </div>
+                <div className='col' />
         </div>
         
     )
