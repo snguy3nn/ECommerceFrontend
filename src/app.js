@@ -8,6 +8,7 @@ import jwtDecode from 'jwt-decode';
 import NewListing from './components/NewListing/newListing';
 import NavBar from './components/NavBar/navBar';
 import Cart from './components/Cart/cart'
+import StarRating from './components/Reviews/reviews';
 
 
 export default function App(){
@@ -59,6 +60,7 @@ export default function App(){
                         }
                     }} />
             </Switch>
+            <StarRating/>
         </div>
         );
     
