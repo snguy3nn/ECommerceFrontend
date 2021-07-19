@@ -1,24 +1,37 @@
 import React from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { Form } from 'react-bootstrap';
 import jwtDecode from 'jwt-decode';
-import Button from 'react-bootstrap/Button'
+import Button from 'react-bootstrap/Button';
+import useForm from '../../hooks/useForm';
 
 
 export default function LandingPage(props){
-    const [user, setUser] = useState(null);
 
-    useEffect(() => {setUser(props.user)}, [props.user])
+    const [user, setUser] = useState(null);
+    const { values, handleChange, handleSubmit } = useForm(submitForm);
+    const [redirect, setRedirect] = useState(false);
+
+    useEffect(() => {setUser(props.user)}, [props.user]);
+
+    function submitForm(){
+        setRedirect(true);
+    }
 
     return(
         <React.Fragment>
+            {redirect && <Redirect to={{pathname: '/searchResults', state: { searchQuery: values.title}}} />}
             {user ? 
             <div className='text-center'>
-                <h1> LandingPage (logged in)</h1>
-                <h3>**Search form goes here**</h3>
-                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: "user's search query"}}}>Search</Button>
-                <p>**User input gets passed to the SearchResults component using the Search button. (It's actually a React-Router Link in disguise).<br /> 
-                We can make the axios call from the SearchResults component with useEffect or componentDidMount.**</p>
+                <h1> Welcome!</h1>
+                <Form onSubmit={handleSubmit}>
+                    <Form.Group controlId="title">
+                        <Form.Label>Search titles</Form.Label>
+                        <Form.Control type="text" name="title" onChange={handleChange} value={values.title} required={true} />
+                    </Form.Group>
+                    <Button type="submit">Search</Button>
+                </Form>
             </div>
             :
             <div className='text-center'>

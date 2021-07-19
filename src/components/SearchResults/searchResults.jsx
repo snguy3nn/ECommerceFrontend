@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 export default function SearchResults(props){
+
+    const [results, setResults] = useState(null);
+
+    useEffect(() => {runSearch()}, []);
+
+    async function runSearch(){
+        try {
+            let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
+            console.log(response.data);
+        }
+        catch(err){
+            alert(err);
+        }
+    }
+
     return(
         <div className='text-center'>
             <h1>SearchResults</h1>
