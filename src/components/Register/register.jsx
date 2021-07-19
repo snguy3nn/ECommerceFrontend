@@ -15,7 +15,6 @@ export default function Register(){
         console.log(newUser);
         try{
             let response = await axios.post('https://localhost:44394/api/authentication', newUser);
-            console.log(response.data);
             setRedirect(true);
         }
         catch(err){

@@ -1,27 +1,29 @@
-import React, { Component } from 'react';
+import React from 'react';
+import { Link, Redirect } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import jwtDecode from 'jwt-decode';
+import Button from 'react-bootstrap/Button'
 
 
 export default function LandingPage(props){
     const [user, setUser] = useState(null);
 
-    useEffect(() => {
-        const jwt = localStorage.getItem('token');
-        try{
-            const user = jwtDecode(jwt);
-            setUser(user);
-        }
-        catch{}
-    }, [])
+    useEffect(() => {setUser(props.user)}, [props.user])
 
     return(
         <React.Fragment>
-            {/* <NavBar user={user}/> */}
             {user ? 
-            <h1> Logged in </h1>
+            <div className='text-center'>
+                <h1> LandingPage (logged in)</h1>
+                <h3>**Search form goes here**</h3>
+                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: "this is the user's search query"}}}>Search</Button>
+                <p>**User input gets passed to the SearchResults component using the Search button. (It's actually a React-Router Link in disguise).<br /> 
+                We can make the axios call from the SearchResults component with useEffect or componentDidMount.**</p>
+            </div>
             :
-            <h1>Not logged in</h1>}
+            <div className='text-center'>
+                <h1>LandingPage (not logged in)</h1>
+            </div>}
         </React.Fragment>
     )
 }
