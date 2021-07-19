@@ -1,20 +1,27 @@
 import axios from 'axios';
-import react, {useState} from 'react';
+import react, {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import {FaStar } from  'react-icons/fa';
+
+
+
+const StarRating = () => {
+    const [rating, setRating] = useState(null);
+    const [hover, setHover] = useState(null)
+    const [results, setResults] = useState(null);
+    useEffect(() =>{postReview()}, []);
 
 async function postReview(){
     try{
         let response = await axios.post(`https://localhost:44394/api/reviews`);
-        let entries = response.data;
+        //let entries = response.data;
+        console.log(response.data);
+        setResults(response.data);
     }
     catch(err){
         alert(err);
     }
 }
-const StarRating = () => {
-    const [rating, setRating] = useState(null);
-    const [hover, setHover] = useState(null)
     return (
      <div className="text-center">
          {[...Array(5)].map((star, i) =>{
