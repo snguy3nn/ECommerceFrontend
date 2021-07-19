@@ -1,7 +1,4 @@
-textarea{
-    border: rgb(197, 189, 175);
-    height: 100;
-}
+
 input[type = "radio"] {
     display: none;
 }
@@ -9,5 +6,5 @@ input[type = "radio"] {
 .star {
     cursor:pointer;
     transition: color 200ms;
-    
+    size: 50px;
 }
