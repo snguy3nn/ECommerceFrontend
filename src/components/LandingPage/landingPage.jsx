@@ -16,13 +16,13 @@ export default function LandingPage(props){
             <div className='text-center'>
                 <h1> LandingPage (logged in)</h1>
                 <h3>**Search form goes here**</h3>
-                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: "this is the user's search query"}}}>Search</Button>
+                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: "user's search query"}}}>Search</Button>
                 <p>**User input gets passed to the SearchResults component using the Search button. (It's actually a React-Router Link in disguise).<br /> 
                 We can make the axios call from the SearchResults component with useEffect or componentDidMount.**</p>
             </div>
             :
             <div className='text-center'>
-                <h1>LandingPage (not logged in)</h1>
+                <h1>Welcome! Please log in or create an account.</h1>
             </div>}
         </React.Fragment>
     )
