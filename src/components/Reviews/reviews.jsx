@@ -1,7 +1,17 @@
-
+import axios from 'axios';
 import react, {useState} from 'react';
 import { Button } from 'react-bootstrap';
 import {FaStar } from  'react-icons/fa';
+
+async function postReview(){
+    try{
+        let response = await axios.post(`https://localhost:44394/api/reviews`);
+        let entries = response.data;
+    }
+    catch(err){
+        alert(err);
+    }
+}
 const StarRating = () => {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null)
@@ -22,7 +32,7 @@ const StarRating = () => {
             style={styles.textarea}>
          </textarea>
          </div>
-         <Button style={styles.button}>Submit</Button>
+         <Button style={styles.button} onClick="function postReview()">Submit</Button>
     </div>
          );
 };
