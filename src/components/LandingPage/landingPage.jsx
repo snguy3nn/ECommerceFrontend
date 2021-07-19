@@ -23,15 +23,19 @@ export default function LandingPage(props){
         <React.Fragment>
             {redirect && <Redirect to={{pathname: '/searchResults', state: { searchQuery: values.title}}} />}
             {user ? 
-            <div className='text-center'>
-                <h1> Welcome!</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="title">
-                        <Form.Label>Search titles</Form.Label>
-                        <Form.Control type="text" name="title" onChange={handleChange} value={values.title} required={true} />
-                    </Form.Group>
-                    <Button type="submit">Search</Button>
-                </Form>
+            <div className='row text-center'>
+                <div className='col' />
+                <div className='col'>
+                    <h1> Welcome!</h1>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="title">
+                            <Form.Label>Search titles</Form.Label>
+                            <Form.Control type="text" name="title" onChange={handleChange} value={values.title} required={true} />
+                        </Form.Group>
+                        <Button className='mt-2' type="submit">Search</Button>
+                    </Form>
+                </div>
+                <div className='col' />
             </div>
             :
             <div className='text-center'>

@@ -5,7 +5,9 @@ export default function GameDetails(props){
     return(
         <React.Fragment>
             {props.location.state.gameId ? 
-            <p>Game Id from props: {props.location.state.gameId}</p>
+            <div className='text-center'>
+                <p>Details for game Id: {props.location.state.gameId}</p>
+            </div>
             :
             <Redirect to="/" />
             }

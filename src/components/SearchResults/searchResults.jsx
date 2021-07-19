@@ -1,45 +1,118 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Table, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 export default function SearchResults(props){
 
     const [results, setResults] = useState(null);
+    const [gamesInCart, setGamesInCart] = useState(null);
 
-    useEffect(() => {runSearch()}, []);
+    useEffect(() => {runSearch(); getCart();}, []);
 
     async function runSearch(){
         try {
             let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
             console.log(response.data);
+            setResults(response.data);
         }
         catch(err){
             alert(err);
         }
     }
 
+    async function getCart(){
+        try{
+            const jwt = localStorage.getItem('token');
+            let response = await axios.get(`https://localhost:44394/api/cart`, { headers: {Authorization: 'Bearer ' + jwt}});
+            let entries = response.data;
+            setGamesInCart(entries);
+        }
+        catch(err){
+        alert(err);
+        }
+    }
+
+    async function addToCart(gameId){
+        try{
+            const jwt = localStorage.getItem('token');
+            let ids = gamesInCart.map(g => g.gameId);
+            if (!ids.includes(gameId)){
+                let response = await axios.post('https://localhost:44394/api/cart', {GameId: gameId, Quantity: 1}, { headers: {Authorization: 'Bearer ' + jwt}});
+                if (response.status === 201){
+                    alert("Added!");
+                    getCart();
+                }
+                else{alert(response.data + '44')}
+            }
+            else{
+                let selectedGame = gamesInCart.filter(g => g.gameId === gameId);
+                selectedGame = selectedGame[0];
+                console.log(jwt);
+                let response = await axios.put(`https://localhost:44394/api/cart/edit/gameId_${gameId}`, {Quantity: (selectedGame.quantity + 1)}, { headers: {Authorization: 'Bearer ' + jwt}});
+                if (response.status === 200){
+                    alert(`Added "${selectedGame.gameTitle}" to cart! New quantity: ${selectedGame.quantity + 1}`);
+                    getCart();
+                }
+                else{alert(response.data = '54')}
+            }
+        }
+        catch(err){
+            alert(err + ' 58');
+        }
+    }
+
+
+    function generateTable(){
+        let tableBody = results.map(entry => {
+            return(
+            <tr key={entry.name}>
+                <td>{entry.name}</td>
+                <td>{entry.platform.name}</td>
+                <td>{entry.price}</td>
+                <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId}}}>Details</Button></td>
+                {entry.userId !== props.user.id ? 
+                <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
+                : <td>Cannot add your own listing to your cart.</td>
+                }
+                
+            </tr>)});
+
+        return(
+            <Table>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Platform</th>
+                        <th>Price</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {tableBody}
+                </tbody>
+            </Table>)
+    }
+
     return(
         <div className='text-center'>
-            <h1>SearchResults</h1>
-            <p>**Props are being passed from two separate components, App and LandingPage**</p>
+            {props.user ? 
+                    <p>{props.user.username}</p>
+            :
+            '' }
+
+            <h1>Search Results</h1>
 
             {props.location.state ?
             <div>
-                <p>Search query being passed as a prop from LandingPage:</p>
-                <h3>{props.location.state.searchQuery}</h3>
-                <p>(We can make an axios call using the user's search query).</p>
+                <h3>"{props.location.state.searchQuery}"</h3>
+                {results && 
+                generateTable()}
             </div>
             :
             <p>This gets rendered if you go to /searchResults without actually running a search. We can replace this with a Redirect back to the home page.</p>}
-            
-
-            {props.user ? 
-            <React.Fragment>
-                <h3>If a user is logged in, their info is passed to SearchResults from the App component. <br />
-                That means we can use their info to generate the 'Add to Cart' buttons and whatever else.</h3>
-                <p>Here's your userId for example: {props.user.id}</p>
-            </React.Fragment>
-            :
-            <p>User is logged out, so there is no user info to display.</p> }
+        
         </div>
     )
 }
