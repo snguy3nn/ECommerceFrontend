@@ -82,17 +82,17 @@ export default function NewListing(props){
                         </Form.Group>
                         <Form.Group controlId="Description">
                             <Form.Label>Description</Form.Label>
-                            <Form.Control type="text" as="textarea" rows={3} name="Description" onChange={handleChange} value={values.Description} required={true} />
+                            <Form.Control type="text" as="textarea" rows={5} name="Description" onChange={handleChange} value={values.Description} required={true} />
                         </Form.Group>
                         {platforms && 
                             <Form.Group controlId="platformName">
-                                <Form.Label>Platform</Form.Label>
+                                <Form.Label>Select Platform</Form.Label>
                                 <Form.Control as="select" name='platformName' onChange={handleChange} value={values.platformName} required={true}>
                                     {generatePlatformOptions()}
                                 </Form.Control>
                             </Form.Group>
                         }
-                        <Button type="submit">Submit</Button>
+                        <Button className='mt-2' type="submit">Submit</Button>
                     </Form>
                 </div>
                 <div className='col' />
