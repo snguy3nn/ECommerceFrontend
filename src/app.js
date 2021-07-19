@@ -7,7 +7,8 @@ import SearchResults from './components/SearchResults/searchResults';
 import jwtDecode from 'jwt-decode';
 import NewListing from './components/NewListing/newListing';
 import NavBar from './components/NavBar/navBar';
-import Cart from './components/Cart/cart'
+import Cart from './components/Cart/cart';
+import GameDetails from './components/GameDetails/gameDetails';
 
 
 export default function App(){
@@ -38,6 +39,7 @@ export default function App(){
                 <Route path="/login" render={(props) => (<Login {...props} getToken={getToken}/>)} />
                 <Route path="/searchResults" render={(props) => (<SearchResults {...props} user={user}/>)} />
                 <Route path="/register" component={Register} />
+                <Route path="/game" render={(props) => (<GameDetails {...props} />)} />
                 <Route 
                     path='/newListing' 
                     render={props => {

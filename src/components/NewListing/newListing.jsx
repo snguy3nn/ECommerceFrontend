@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
@@ -11,6 +12,8 @@ export default function NewListing(props){
     const [token, setToken] = useState(null);
     const [platforms, setPlatforms] = useState(null);
     const { values, handleChange, handleSubmit, setValues } = useForm(submitForm);
+    const [redirect, setRedirect] = useState(false);
+    const [newGameId, setNewGameId] = useState(null);
 
     useEffect(() => {
         const jwt = localStorage.getItem('token');
@@ -50,15 +53,18 @@ export default function NewListing(props){
         try{
             let response = await axios.post('https://localhost:44394/api/games', newGame, { headers: {Authorization: 'Bearer ' + token}});
             console.log(response.data)
+            setNewGameId(response.data.gameId);
+            setRedirect(true);
         }
         catch(err){
             alert(err);
         }
-        //redirect somewhere!
     }
 
     return(
         <div className='text-center'>
+            {redirect && 
+            <Redirect to={{pathname: '/game', state: { gameId: newGameId}}} /> }
             <div>
                 <h1>New Listing</h1>
                     <Form onSubmit={handleSubmit}>
