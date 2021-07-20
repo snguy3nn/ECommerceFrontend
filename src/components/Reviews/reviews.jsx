@@ -87,15 +87,17 @@ export default function Reviews(props){
                                 <Form.Label>Post Comment</Form.Label>
                                 <Form.Control as="textarea" rows={4} name="comment" onChange={handleChange} value={values.comment} required={true} />
                             </Form.Group>
-                            {[...Array(5)].map((star, i) =>{
-                            const ratingValue = i + 1;
-                            return (
-                            <label key={i}>
-                                <input key={i+1} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} required={true}/>
-                                <FaStar key={i+2} className="star" color={ratingValue <= (hover || rating) ? "#ffc107": "#e4e5e9"} size={30}onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(null)} />
-                            </label> 
-                            );
-                            })}
+                            <Form.Group className='mt-1 mb-1'>
+                                {[...Array(5)].map((star, i) =>{
+                                const ratingValue = i + 1;
+                                return (
+                                <label key={i}>
+                                    <input className='invisible' key={i+1} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} required={true}/>
+                                    <FaStar key={i+2} className="star" color={ratingValue <= (hover || rating) ? "#ffc107": "#e4e5e9"} size={30}onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(null)} />
+                                </label> 
+                                );
+                                })}
+                            </Form.Group>
                             <Button className='mt-2' type="submit">Submit</Button>
                         </Form>
                     </div>

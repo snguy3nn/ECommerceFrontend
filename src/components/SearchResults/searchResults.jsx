@@ -84,13 +84,13 @@ export default function SearchResults(props){
                 <td>{entry.name}</td>
                 <td>{entry.platform.name}</td>
                 <td>${entry.price}</td>
-                <td>{entry.seller}</td>
+                {entry.userId !== props.user.id ? <td>{entry.seller}</td> : <td><strong>{entry.seller} (you)</strong></td>}
                 <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Details</Button></td>
                 {props. user && 
                 <React.Fragment>
                     {entry.userId !== props.user.id ? 
                     <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
-                    : <td>Cannot add your own listing to cart.</td>
+                    : <td></td>
                     }
                 </React.Fragment>
             }
