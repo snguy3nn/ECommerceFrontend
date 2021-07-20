@@ -14,7 +14,7 @@ export default function GameDetails(props){
         const jwt = localStorage.getItem('token');
         setToken(jwt);
         getGame();
-    })
+    }, [])
 
     async function getGame(){
         if(typeof props.location.state !== 'undefined'){
