@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default function SearchResults(props){
 
     const [results, setResults] = useState(null);
     const [gamesInCart, setGamesInCart] = useState(null);
 
-    useEffect(() => {runSearch();}, []);
+    useEffect(() => {
+        if(typeof props.location.state !== 'undefined'){
+            runSearch()
+        }
+    }, []);
 
     async function runSearch(){
         if (!props.location.state.showAll){
             try {
                 let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
-                // console.log(response.data);
                 setResults(response.data);
             }
             catch(err){
@@ -135,7 +138,7 @@ export default function SearchResults(props){
                 generateTable()}
             </div>
             :
-            <p>This gets rendered if you go to /searchResults without actually running a search. We can replace this with a Redirect back to the home page.</p>}
+            <Redirect to="/" />}
         
         </div>
     )
