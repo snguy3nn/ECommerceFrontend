@@ -7,13 +7,8 @@ import SearchResults from './components/SearchResults/searchResults';
 import jwtDecode from 'jwt-decode';
 import NewListing from './components/NewListing/newListing';
 import NavBar from './components/NavBar/navBar';
-<<<<<<< HEAD
 import Cart from './components/Cart/cart';
 import GameDetails from './components/GameDetails/gameDetails';
-=======
-import Cart from './components/Cart/cart'
-import StarRating from './components/Reviews/reviews';
->>>>>>> caitlinReviews
 
 
 export default function App(){

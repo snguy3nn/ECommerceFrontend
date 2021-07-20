@@ -31,9 +31,9 @@ export default function GameDetails(props){
     return(
         <React.Fragment>
             {props.location.state ? 
-            <div className='text-center'>
+            <div>
                 {game && 
-                <div className='row'>
+                <div className='row text-center'>
                     <div className='col'/>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
