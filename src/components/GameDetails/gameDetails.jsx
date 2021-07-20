@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Redirect, Link } from 'react-router-dom';
 import axios from 'axios';
 import { Card, Button } from 'react-bootstrap';
+import Reviews from '../Reviews/reviews';
 
 export default function GameDetails(props){
 
@@ -46,7 +47,8 @@ export default function GameDetails(props){
                     <div className='col'/>
                 </div>
                 }
-                {token ? <p>Reviews go here if logged in</p> : <p>Log in to see reviews.</p>}
+                {token ? 
+                <Reviews gameId={props.location.state.gameId} /> : <p>Log in to see reviews.</p>}
             </div>
             :
             <Redirect to="/" />
