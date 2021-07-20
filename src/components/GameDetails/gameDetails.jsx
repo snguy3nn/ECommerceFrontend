@@ -41,6 +41,7 @@ export default function GameDetails(props){
                             <Card.Text>
                                 <p>"{game.description}"</p>
                                 <p>Platform: {game.platform.name}</p>
+                                <p>Sold by {game.seller}</p>
                                 <h6>${game.price}</h6>
                             </Card.Text>
                             <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>View All Titles</Button>
