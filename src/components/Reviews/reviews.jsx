@@ -2,6 +2,8 @@ import axios from 'axios';
 import react, {useState, useEffect} from 'react';
 import { Button } from 'react-bootstrap';
 import {FaStar } from  'react-icons/fa';
+import useForm from '../../hooks/useForm';
+import { Form } from 'react-bootstrap';
 
 
 
@@ -9,15 +11,17 @@ const StarRating = () => {
     const [rating, setRating] = useState(null);
     const [hover, setHover] = useState(null)
     const [results, setResults] = useState(null);
-    useEffect(() =>{postReview()}, []);
+    const { values, handleChange, handleSubmit } = useForm(postReview);
 
 async function postReview(){
     try{
-        let response = await axios.post(`https://localhost:44394/api/reviews`);
-        //let entries = response.data;
-        console.log(response.data);
-        setResults(response.data);
-    }
+        // let response = await axios.post(`https://localhost:44394/api/reviews`);
+        // //let entries = response.data;
+        // console.log(response.data);
+        // setResults(response.data);
+        console.log(values.comment);
+        console.log(rating);
+    }   
     catch(err){
         alert(err);
     }
@@ -34,12 +38,14 @@ async function postReview(){
              );
          })}
          <div >
-         <textarea
-            placeholder="What is your feedback on the game?"
-            style={styles.textarea}>
-         </textarea>
+         <Form onSubmit={handleSubmit}>
+            <Form.Group controlId="comment">
+                <Form.Label>Post Comment</Form.Label>
+                <Form.Control type="text" name="comment" onChange={handleChange} value={values.comment} required={true} />
+            </Form.Group>
+            <Button className='mt-2' type="submit">Submit</Button>
+         </Form>
          </div>
-         <Button style={styles.button} onClick="function postReview()">Submit</Button>
     </div>
          );
 };
