@@ -63,7 +63,6 @@ export default function SearchResults(props){
             else{
                 let selectedGame = gamesInCart.filter(g => g.gameId === gameId);
                 selectedGame = selectedGame[0];
-                console.log(jwt);
                 let response = await axios.put(`https://localhost:44394/api/cart/edit/gameId_${gameId}`, {Quantity: (selectedGame.quantity + 1)}, { headers: {Authorization: 'Bearer ' + jwt}});
                 if (response.status === 200){
                     alert(`Added "${selectedGame.gameTitle}" to cart! New quantity: ${selectedGame.quantity + 1}`);
@@ -85,6 +84,7 @@ export default function SearchResults(props){
                 <td>{entry.name}</td>
                 <td>{entry.platform.name}</td>
                 <td>${entry.price}</td>
+                <td>{entry.seller}</td>
                 <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Details</Button></td>
                 {props. user && 
                 <React.Fragment>
@@ -103,6 +103,7 @@ export default function SearchResults(props){
                         <th>Title</th>
                         <th>Platform</th>
                         <th>Price</th>
+                        <th>Seller</th>
                         <th></th>
                         <th></th>
                     </tr>

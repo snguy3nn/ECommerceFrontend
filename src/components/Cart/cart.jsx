@@ -43,7 +43,6 @@ export default function Cart(props){
             try{
                 const jwt = localStorage.getItem('token');
                 let response = await axios.delete(`https://localhost:44394/api/cart/delete/gameId_${gameId}`, { headers: {Authorization: 'Bearer ' + jwt}});
-                console.log(response);
                 getCart(jwt);
             }
             catch(err){
@@ -53,7 +52,6 @@ export default function Cart(props){
     }
 
     function generateCartTable(){
-        //gameTitle, seller, quantity,
         let tableBody = cartEntries.map(entry => {
             return(
             <tr key={entry.gameTitle}>

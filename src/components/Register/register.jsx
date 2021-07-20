@@ -58,7 +58,7 @@ export default function Register(){
                             <Form.Label>Phone number</Form.Label>
                             <Form.Control type="tel" name="phonenumber" onChange={handleChange} value={values.phonenumber} required={true} />
                         </Form.Group>
-                        <Button type="submit">Submit</Button>
+                        <Button className='mt-2' type="submit">Submit</Button>
                     </Form>
                 </div>
                 <div className='col' />

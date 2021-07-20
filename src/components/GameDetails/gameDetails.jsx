@@ -43,13 +43,13 @@ export default function GameDetails(props){
                                 <p>Platform: {game.platform.name}</p>
                                 <h6>${game.price}</h6>
                             </Card.Text>
-                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Back to results</Button>
+                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>View All Titles</Button>
                         </Card.Body>
                     </Card>
                     <div className='col'/>
                 </div>
                 }
-                {token ? <Reviews gameId={props.location.state.gameId} /> : <p>Log in to see reviews.</p>}
+                {token ? <Reviews gameId={props.location.state.gameId} /> : <p className='text-center'>Log in to see reviews.</p>}
             </div>
             :
             <Redirect to="/" />
