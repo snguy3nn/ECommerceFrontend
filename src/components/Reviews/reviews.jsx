@@ -52,7 +52,7 @@ export default function Reviews(props){
     function generateReviewsDisplay(){
         let display = reviews.map((review) => {
             return(
-                <div className='mt-1 mb-1'>
+                <div key={review.userName} className='mt-1 mb-1'>
                     <Alert variant='dark'>
                         <h3 className='text-left'>{review.userName} ({review.rating} <FaStar className="star align-top"  size={30} color={"#ffc107"}/>)</h3>
                         <Alert variant='light'>{review.comment}</Alert>
