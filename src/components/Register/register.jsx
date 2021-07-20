@@ -45,9 +45,9 @@ export default function Register(){
                         </Form.Group>
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" onChange={handleChange} value={values.password} required={true} />
+                            <Form.Control type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" onChange={handleChange} value={values.password} required={true} />
                             <Form.Text className="text-muted">
-                            Must be at least 4 characters and contain a number, lowercase letter, and uppercase letter.
+                            Must be at least 8 characters and contain a number, lowercase letter, and uppercase letter.
                             </Form.Text>
                         </Form.Group>
                         <Form.Group controlId="email">
