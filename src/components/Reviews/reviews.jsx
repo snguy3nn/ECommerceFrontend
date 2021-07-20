@@ -39,7 +39,7 @@ async function postReview(){
             style={styles.textarea}>
          </textarea>
          </div>
-         <Button style={styles.button} onClick="function postReview()">Submit</Button>
+         <Button style={styles.button} onClick={() => postReview()}>Submit</Button>
     </div>
          );
 };
