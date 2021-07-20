@@ -134,8 +134,11 @@ export default function SearchResults(props){
             {props.location.state ?
             <div>
                 {props.location.state.searchQuery ? <h3>"{props.location.state.searchQuery}"</h3> : <h3>View All Listings</h3>}
-                {results && 
-                generateTable()}
+                {results &&
+                <React.Fragment>
+                    {results.length > 0 ? generateTable() : <p>No items to display.</p>}
+                </React.Fragment>
+                }
             </div>
             :
             <Redirect to="/" />}
