@@ -8,7 +8,7 @@ export default function SearchResults(props){
     const [results, setResults] = useState(null);
     const [gamesInCart, setGamesInCart] = useState(null);
 
-    useEffect(() => {runSearch(); getCart();}, []);
+    useEffect(() => {runSearch();}, []);
 
     async function runSearch(){
         if (!props.location.state.showAll){
@@ -30,6 +30,7 @@ export default function SearchResults(props){
                 alert(err);
             }
         }
+        getCart();
     }
 
     async function getCart(){
@@ -80,7 +81,7 @@ export default function SearchResults(props){
     function generateTable(){
         let tableBody = results.map(entry => {
             return(
-            <tr key={entry.name}>
+            <tr key={entry.gameId}>
                 <td>{entry.name}</td>
                 <td>{entry.platform.name}</td>
                 <td>${entry.price}</td>

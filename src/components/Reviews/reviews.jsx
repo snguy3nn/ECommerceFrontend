@@ -13,6 +13,7 @@ export default function Reviews(props){
     const { values, handleChange, handleSubmit } = useForm(postReview);
     const [reviews, setReviews] = useState(null);
     const [canPost, setCanPost] = useState(false);
+    const [avgRating, setAvgRating] = useState(null);
 
     useEffect(() => {
         getReviews();
@@ -21,6 +22,16 @@ export default function Reviews(props){
     async function getReviews(){
         try{
             let response = await axios.get(`https://localhost:44394/api/reviews/game_${props.gameId}`);
+            let reviews = response.data;
+            if (reviews.length > 0){
+                let allRatings = reviews.map(r => r.rating);
+                let sum = 0;
+                for (let i=0; i<allRatings.length; i++){
+                    sum += allRatings[i];
+                }
+                let avg = sum/allRatings.length;
+                setAvgRating(avg);
+            }
             setReviews(response.data);
             checkCanPost(response.data);
         }
@@ -43,13 +54,12 @@ export default function Reviews(props){
             return(
                 <div className='mt-1 mb-1'>
                     <Alert variant='dark'>
-                        <h3 className='text-left'>{review.userName} ({review.rating} stars)</h3>
+                        <h3 className='text-left'>{review.userName} ({review.rating} <FaStar className="star align-top"  size={30} color={"#ffc107"}/>)</h3>
                         <Alert variant='light'>{review.comment}</Alert>
                     </Alert>
                 </div>
             )
         })
-
         return display;
     }
 
@@ -58,7 +68,7 @@ export default function Reviews(props){
             const jwt = localStorage.getItem('token');
             let newReview = {GameId: props.gameId, Comment: values.comment, Rating: rating};
             let response = await axios.post(`https://localhost:44394/api/reviews`, newReview, { headers: {Authorization: 'Bearer ' + jwt}});
-            console.log(response.data);
+            setCanPost(false);
             getReviews();
         }   
         catch(err){
@@ -80,12 +90,12 @@ export default function Reviews(props){
                             {[...Array(5)].map((star, i) =>{
                             const ratingValue = i + 1;
                             return (
-                            <label>
-                                <input type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} required={true}/>
-                                <FaStar className="star" color={ratingValue <= (hover || rating) ? "#ffc107": "#e4e5e9"} size={30}onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(null)} />
+                            <label key={i}>
+                                <input key={i+1} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} required={true}/>
+                                <FaStar key={i+2} className="star" color={ratingValue <= (hover || rating) ? "#ffc107": "#e4e5e9"} size={30}onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(null)} />
                             </label> 
                             );
-                        })}
+                            })}
                             <Button className='mt-2' type="submit">Submit</Button>
                         </Form>
                     </div>
@@ -101,6 +111,10 @@ export default function Reviews(props){
             <div className='row overflow-auto'>
                 <div className='col' />
                 <div className='mt-2 col-8' >
+                    {avgRating && 
+                        <h3 className='text-center'>
+                            Average rating: {avgRating} <FaStar className="star align-top"  size={30} color={"#ffc107"}/>
+                        </h3>}
                     {generateReviewsDisplay()}
                 </div>
                 <div className='col' />
