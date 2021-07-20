@@ -59,7 +59,7 @@ export default function Cart(props){
             <tr key={entry.gameTitle}>
                 <td>{entry.gameTitle}</td>
                 <td>{entry.seller}</td>
-                <td>{entry.gamePrice}</td>
+                <td>${entry.gamePrice}</td>
                 <td>{entry.quantity}</td>
                 <td><Button size='sm' variant='danger' onClick={() => deleteEntry(entry.gameId)}>Remove</Button></td>
             </tr>)})
