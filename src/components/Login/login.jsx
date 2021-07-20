@@ -21,8 +21,10 @@ export default function Login(props){
             setRedirect(true);
         }
         catch(err){
-            // if (err.response.status && err.response.status === 401){
-            alert(err);
+            if (typeof err.response.status !== 'undefined' && err.response.status === 401){
+                alert('Invalid credentials!');
+            }
+            else{alert(err)};
         }
     }
 
