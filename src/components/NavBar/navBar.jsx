@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import jwtDecode from 'jwt-decode';
+import './navBar.css';
 
 export default function NavBar(props){
 

@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
+import './register.css';
 
 export default function Register(){
     const { values, handleChange, handleSubmit } = useForm(submitForm);
@@ -26,7 +27,7 @@ export default function Register(){
     return(
         <React.Fragment>
             {!redirect ? 
-            <div>
+            <div className="container">
                 <h1>Register New User</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="firstName">
@@ -44,7 +45,7 @@ export default function Register(){
                         <Form.Group controlId="password">
                             <Form.Label>Password</Form.Label>
                             <Form.Control type="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{4,}" onChange={handleChange} value={values.password} required={true} />
-                            <Form.Text className="text-muted">
+                            <Form.Text className="text-light">
                             Must be at least 4 characters and contain a number, lowercase letter, and uppercase letter.
                             </Form.Text>
                         </Form.Group>
@@ -56,6 +57,7 @@ export default function Register(){
                             <Form.Label>Phone number</Form.Label>
                             <Form.Control type="tel" name="phonenumber" onChange={handleChange} value={values.phonenumber} required={true} />
                         </Form.Group>
+                        <br />
                         <Button type="submit">Submit</Button>
                     </Form>
                 </div>

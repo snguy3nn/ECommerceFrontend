@@ -11,6 +11,7 @@ import Cart from './components/Cart/cart';
 import GameDetails from './components/GameDetails/gameDetails';
 
 
+
 export default function App(){
 
     const [user, setUser] = useState(null);

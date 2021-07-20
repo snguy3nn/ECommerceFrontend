@@ -30,6 +30,7 @@ export default function Login(props){
         <React.Fragment>
             {!redirect ? 
             <React.Fragment>
+            <div className="container">
                 <h1>Login</h1>
                 <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="username">
@@ -40,8 +41,10 @@ export default function Login(props){
                         <Form.Label>Password</Form.Label>
                         <Form.Control type="password" name="password" onChange={handleChange} value={values.password} required={true} />
                     </Form.Group>
+                    <br/>
                     <Button type="submit">Login</Button>
                 </Form>
+            </div>   
             </React.Fragment>
             :
             <Redirect to="/" />}
