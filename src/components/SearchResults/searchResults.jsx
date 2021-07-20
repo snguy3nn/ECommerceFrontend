@@ -33,14 +33,17 @@ export default function SearchResults(props){
     }
 
     async function getCart(){
-        try{
-            const jwt = localStorage.getItem('token');
-            let response = await axios.get(`https://localhost:44394/api/cart`, { headers: {Authorization: 'Bearer ' + jwt}});
-            let entries = response.data;
-            setGamesInCart(entries);
-        }
-        catch(err){
-        alert(err);
+        const jwt = localStorage.getItem('token');
+        if (jwt !== null){
+            try{
+                
+                let response = await axios.get(`https://localhost:44394/api/cart`, { headers: {Authorization: 'Bearer ' + jwt}});
+                let entries = response.data;
+                setGamesInCart(entries);
+            }
+            catch(err){
+            alert(err);
+            }
         }
     }
 
@@ -82,11 +85,14 @@ export default function SearchResults(props){
                 <td>{entry.platform.name}</td>
                 <td>${entry.price}</td>
                 <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Details</Button></td>
-                {entry.userId !== props.user.id ? 
-                <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
-                : <td>Cannot add your own listing to cart.</td>
-                }
-                
+                {props. user && 
+                <React.Fragment>
+                    {entry.userId !== props.user.id ? 
+                    <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
+                    : <td>Cannot add your own listing to cart.</td>
+                    }
+                </React.Fragment>
+            }
             </tr>)});
 
         return(

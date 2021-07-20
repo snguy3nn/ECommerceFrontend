@@ -26,7 +26,7 @@ export default function LandingPage(props){
             <div className='row text-center'>
                 <div className='col' />
                 <div className='col'>
-                    <h1> Welcome!</h1>
+                    <h1> Welcome {props.user.username}!</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="title">
                             <Form.Label>Search titles</Form.Label>
@@ -41,6 +41,20 @@ export default function LandingPage(props){
             :
             <div className='text-center'>
                 <h1>Welcome! Please log in or create an account.</h1>
+                <div className='row'>
+                    <div className='col' />
+                    <div className='col'>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="title">
+                                <Form.Label>Search titles</Form.Label>
+                                <Form.Control type="text" name="title" onChange={handleChange} value={values.title} required={true} />
+                            </Form.Group>
+                            <Button className='mt-2' type="submit">Search</Button>
+                        </Form>
+                        <Button className='mt-2' variant='success' as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>View All Listings</Button>
+                    </div>
+                <div className='col' />
+            </div>
             </div>}
         </React.Fragment>
     )
