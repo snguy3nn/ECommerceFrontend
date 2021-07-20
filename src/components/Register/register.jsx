@@ -26,8 +26,10 @@ export default function Register(){
     return(
         <React.Fragment>
             {!redirect ? 
-            <div>
-                <h1>Register New User</h1>
+            <div className='row'>
+                <div className='col' />
+                <div className='col'>
+                    <h1>Register New User</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="firstName">
                             <Form.Label>First name</Form.Label>
@@ -59,6 +61,8 @@ export default function Register(){
                         <Button type="submit">Submit</Button>
                     </Form>
                 </div>
+                <div className='col' />
+            </div>
             : <Redirect to="/login"/>}
         </React.Fragment>
     )

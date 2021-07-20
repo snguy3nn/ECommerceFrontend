@@ -26,7 +26,7 @@ export default function LandingPage(props){
             <div className='row text-center'>
                 <div className='col' />
                 <div className='col'>
-                    <h1> Welcome {props.user.username}!</h1>
+                    <h1> Welcome {user.username}!</h1>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group controlId="title">
                             <Form.Label>Search titles</Form.Label>
