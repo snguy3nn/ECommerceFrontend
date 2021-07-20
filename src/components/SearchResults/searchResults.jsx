@@ -11,13 +11,24 @@ export default function SearchResults(props){
     useEffect(() => {runSearch(); getCart();}, []);
 
     async function runSearch(){
-        try {
-            let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
-            console.log(response.data);
-            setResults(response.data);
+        if (!props.location.state.showAll){
+            try {
+                let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
+                // console.log(response.data);
+                setResults(response.data);
+            }
+            catch(err){
+                alert(err);
+            }
         }
-        catch(err){
-            alert(err);
+        else{
+            try{
+                let response = await axios.get('https://localhost:44394/api/games/all');
+                setResults(response.data);
+            }
+            catch(err){
+                alert(err);
+            }
         }
     }
 
@@ -69,8 +80,8 @@ export default function SearchResults(props){
             <tr key={entry.name}>
                 <td>{entry.name}</td>
                 <td>{entry.platform.name}</td>
-                <td>{entry.price}</td>
-                <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery}}}>Details</Button></td>
+                <td>${entry.price}</td>
+                <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Details</Button></td>
                 {entry.userId !== props.user.id ? 
                 <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
                 : <td>Cannot add your own listing to cart.</td>
@@ -106,7 +117,7 @@ export default function SearchResults(props){
 
             {props.location.state ?
             <div>
-                <h3>"{props.location.state.searchQuery}"</h3>
+                {props.location.state.searchQuery ? <h3>"{props.location.state.searchQuery}"</h3> : <h3>View All Listings</h3>}
                 {results && 
                 generateTable()}
             </div>

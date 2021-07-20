@@ -34,6 +34,7 @@ export default function LandingPage(props){
                         </Form.Group>
                         <Button className='mt-2' type="submit">Search</Button>
                     </Form>
+                    <Button className='mt-2' variant='success' as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>View All Listings</Button>
                 </div>
                 <div className='col' />
             </div>
