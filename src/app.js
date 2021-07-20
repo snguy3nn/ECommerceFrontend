@@ -40,16 +40,6 @@ export default function App(){
                 <Route path="/searchResults" render={(props) => (<SearchResults {...props} user={user}/>)} />
                 <Route path="/register" component={Register} />
                 <Route path="/game" render={(props) => (<GameDetails {...props} />)} />
-                {/* <Route 
-                    path='/searchResults' 
-                    render={props => {
-                        if (!user){
-                            return <Redirect to="/" />;
-                        }
-                        else{
-                            return <SearchResults {...props} user={user}/>
-                        }
-                    }} /> */}
                 <Route 
                     path='/newListing' 
                     render={props => {

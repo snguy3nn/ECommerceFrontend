@@ -17,18 +17,20 @@ export default function GameDetails(props){
     })
 
     async function getGame(){
-        try{
-            let response = await axios.get(`https://localhost:44394/api/games/${props.location.state.gameId}`);
-            setGame(response.data);
-        }
-        catch(err){
-            alert(err);
+        if(typeof props.location.state !== 'undefined'){
+            try{
+                let response = await axios.get(`https://localhost:44394/api/games/${props.location.state.gameId}`);
+                setGame(response.data);
+            }
+            catch(err){
+                alert(err);
+            }
         }
     }
 
     return(
         <React.Fragment>
-            {props.location.state.gameId ? 
+            {props.location.state ? 
             <div className='text-center'>
                 {game && 
                 <div className='row'>
@@ -47,8 +49,7 @@ export default function GameDetails(props){
                     <div className='col'/>
                 </div>
                 }
-                {token ? 
-                <Reviews gameId={props.location.state.gameId} /> : <p>Log in to see reviews.</p>}
+                {token ? <Reviews gameId={props.location.state.gameId} /> : <p>Log in to see reviews.</p>}
             </div>
             :
             <Redirect to="/" />
