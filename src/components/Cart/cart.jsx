@@ -15,7 +15,7 @@ export default function Cart(props){
         catch(err){
             alert(err)
         }
-    },[] )
+    },[]);
 
     async function getCart(jwt){
         try{
@@ -83,8 +83,13 @@ export default function Cart(props){
     return(
         <div className='text-center'>
             <h1>My Cart</h1>
-            {cartEntries && 
-            generateCartTable()}
+            {cartEntries ? 
+            <React.Fragment>
+                {cartEntries.length === 0 ? <p>No items to display.</p> : generateCartTable()}
+            </React.Fragment>
+            :
+            <p>Loading...</p>
+            }
         </div>
     )
 }
