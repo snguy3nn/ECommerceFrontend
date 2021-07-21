@@ -127,9 +127,11 @@ export default function Reviews(props){
                 <div className='col' />
                 <div className='mt-2 col-8' >
                     {avgRating && 
-                        <h3 className='text-center'>
+                    <div className='d-flex justify-content-center text-center'>
+                        <h3 className='w-50 bg-dark'>
                             Average rating: {avgRating} <FaStar className="star align-top"  size={30} color={"#ffc107"}/>
-                        </h3>}
+                        </h3>
+                    </div>}
                     {generateReviewsDisplay()}
                 </div>
                 <div className='col' />
