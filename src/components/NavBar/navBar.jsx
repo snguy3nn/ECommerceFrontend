@@ -4,9 +4,10 @@ import Container from 'react-bootstrap/Container';
 import { Link } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
-import Image from 'react-bootstrap/Image'
 import jwtDecode from 'jwt-decode';
 import './navBar.css';
+
+
 
 export default function NavBar(props){
 
@@ -17,9 +18,8 @@ export default function NavBar(props){
     return(
         <React.Fragment>
             {user ? 
-            <Navbar>
+            <Navbar className="color-nav" variant="light">
                 <Container>
-                    <Image src ="gamebay.png"/>
                     <Navbar.Brand>Gamebay</Navbar.Brand>
                     <Nav>
                         <Nav.Item> 
@@ -42,11 +42,12 @@ export default function NavBar(props){
                         </Nav.Item>
                     </Nav>
                 </Container>
+                <br />
             </Navbar>
             :
-            <Navbar>
+            <Navbar className="color-nav" variant="light">
                 <Container>
-                    <Navbar.Brand>Gamebay</Navbar.Brand>
+                    <Navbar.Brand>Gamebay<img src="../gamebay.png" alt="logo"/></Navbar.Brand>
                     <Nav>
                         <Nav.Item> 
                             <Nav.Link as={Link} to="/">Home</Nav.Link>
@@ -60,6 +61,7 @@ export default function NavBar(props){
                     </Nav>
                 </Container>
             </Navbar> }
+            <br />
         </React.Fragment>
     )
 

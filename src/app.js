@@ -10,6 +10,7 @@ import NavBar from './components/NavBar/navBar';
 import Cart from './components/Cart/cart';
 import GameDetails from './components/GameDetails/gameDetails';
 import MyListings from './components/MyListings/myListings';
+import './app.css'
 
 
 
@@ -34,7 +35,7 @@ export default function App(){
     }
 
     return (
-        <div>
+        <div class="bg_image">
             <NavBar user={user} logout={logout}/>
             <Switch>
                 <Route path="/" exact render={(props) => (<LandingPage {...props} user={user}/>)} />
@@ -73,7 +74,6 @@ export default function App(){
                         }
                     }} />
             </Switch>
-            
         </div>
         );
     
