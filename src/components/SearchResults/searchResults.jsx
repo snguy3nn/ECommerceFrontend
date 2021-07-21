@@ -12,7 +12,7 @@ export default function SearchResults(props){
         if(typeof props.location.state !== 'undefined'){
             runSearch()
         }
-    }, []);
+    }, [props]);
 
     async function runSearch(){
         if (!props.location.state.showAll){

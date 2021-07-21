@@ -44,7 +44,10 @@ export default function GameDetails(props){
                                 <p>Sold by {game.seller}</p>
                                 <h6>${game.price}</h6>
                             </Card.Text>
-                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>View All Titles</Button>
+                            {props.location.state.searchQuery && 
+                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: false}}}>Back to Results</Button>}
+                            {!props.location.state.searchQuery && 
+                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Button>}
                         </Card.Body>
                     </Card>
                     <div className='col'/>

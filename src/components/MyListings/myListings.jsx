@@ -35,7 +35,6 @@ export default function MyListings(props){
     async function deleteGame(game){
         try{
             const token = localStorage.getItem('token');
-            // let body = {GameId: game.gameId};
             let response = await axios.delete('https://localhost:44394/api/games', { headers: {Authorization: 'Bearer ' + token}, data: {GameId: game.gameId}});
             console.log(response.data);
             getMyListings(props.user);
