@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from 'react-bootstrap/Navbar';
 import Container from 'react-bootstrap/Container';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { Nav } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import jwtDecode from 'jwt-decode';
@@ -9,8 +9,14 @@ import jwtDecode from 'jwt-decode';
 export default function NavBar(props){
 
     const [user, setUser] = useState(props.user);
+    const [redirect, setRedirect] = useState(false);
 
-    useEffect(() => {setUser(props.user)}, [props.user])
+    useEffect(() => {setUser(props.user); setRedirect(false);}, [props.user])
+
+    function logout(){
+        setRedirect(true);
+        props.logout();
+    }
 
     return(
         <React.Fragment>
@@ -35,7 +41,7 @@ export default function NavBar(props){
                             <Nav.Link as={Link} to="/cart">My Cart</Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Button variant='danger' onClick={() => props.logout()} >Logout</Button>
+                            {!redirect ? <Button variant='danger' onClick={() => logout()} >Logout {user.username}</Button> : <Redirect to='/'/>}
                         </Nav.Item>
                     </Nav>
                 </Container>

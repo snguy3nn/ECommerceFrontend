@@ -33,27 +33,29 @@ export default function GameDetails(props){
             {props.location.state ? 
             <div>
                 {game && 
-                <div className='row text-center'>
-                    <div className='col'/>
-                    <Card style={{ width: '18rem' }}>
-                        <Card.Body>
-                            <Card.Title>{game.name}</Card.Title>
-                            <Card.Text>
-                                <p>"{game.description}"</p>
-                                <p>Platform: {game.platform.name}</p>
-                                <p>Sold by {game.seller}</p>
-                                <h6>${game.price}</h6>
-                            </Card.Text>
-                            {props.location.state.searchQuery && 
-                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: false}}}>Back to Results</Button>}
-                            {!props.location.state.searchQuery && 
-                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Button>}
-                        </Card.Body>
-                    </Card>
-                    <div className='col'/>
-                </div>
+                <React.Fragment>
+                    <div className='row text-center'>
+                        <div className='col'/>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Body>
+                                <Card.Title>{game.name}</Card.Title>
+                                <Card.Text>
+                                    <p>"{game.description}"</p>
+                                    <p>Platform: {game.platform.name}</p>
+                                    <p>Sold by {game.seller}</p>
+                                    <h6>${game.price}</h6>
+                                </Card.Text>
+                                {props.location.state.searchQuery && 
+                                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: false}}}>Back to Results</Button>}
+                                {!props.location.state.searchQuery && 
+                                <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Button>}
+                            </Card.Body>
+                        </Card>
+                        <div className='col'/>
+                    </div>
+                    {token ? <Reviews gameId={game.gameId} sellerId={game.userId}/> : <p className='text-center'>Log in to see reviews.</p>}
+                </React.Fragment>
                 }
-                {token ? <Reviews gameId={props.location.state.gameId} /> : <p className='text-center'>Log in to see reviews.</p>}
             </div>
             :
             <Redirect to="/" />

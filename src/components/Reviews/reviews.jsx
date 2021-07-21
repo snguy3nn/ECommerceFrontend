@@ -14,6 +14,7 @@ export default function Reviews(props){
     const [reviews, setReviews] = useState(null);
     const [canPost, setCanPost] = useState(false);
     const [avgRating, setAvgRating] = useState(null);
+    const [isCreator, setIsCreator] = useState(false);
 
     useEffect(() => {
         getReviews();
@@ -46,6 +47,10 @@ export default function Reviews(props){
         let ids = reviewsArray.map(r => r.userId);
         if (!ids.includes(user.id)){
             setCanPost(true);
+        }
+        if (props.sellerId === user.id){
+            setIsCreator(true);
+            setCanPost(false);
         }
     }
 
@@ -103,10 +108,18 @@ export default function Reviews(props){
                     </div>
                     <div className='col' />
                 </div>
+            :
+                <React.Fragment>
+                {!isCreator ? 
+                    <div className='text-center'>
+                        <p>(You have already posted a review for this game)</p>
+                    </div>
                 :
-                <div className='text-center'>
-                    <p>(You have already posted a review for this game)</p>
-                </div>
+                    <div className='text-center'>
+                        <p>(Cannot review your own listing)</p>
+                    </div>
+                }
+                </React.Fragment>
             }
 
             {reviews && 
