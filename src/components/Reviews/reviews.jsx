@@ -86,24 +86,24 @@ export default function Reviews(props){
                 <div className='row'>
                     <div className='col' />
                     <div className="col text-center">
-                        
+                        <br />
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="comment">
                                 <Form.Label>Post Comment</Form.Label>
                                 <Form.Control as="textarea" rows={4} name="comment" onChange={handleChange} value={values.comment} required={true} />
                             </Form.Group>
-                            <Form.Group className='mt-1 mb-1'>
+                            <Form.Group className='mt-1 mb-1 row'>
                                 {[...Array(5)].map((star, i) =>{
                                 const ratingValue = i + 1;
                                 return (
-                                <label key={i}>
+                                <label className="col" key={i}>
                                     <input className='invisible' key={i+1} type="radio" name="rating" value={ratingValue} onClick={() => setRating(ratingValue)} required={true}/>
                                     <FaStar key={i+2} className="star" color={ratingValue <= (hover || rating) ? "#ffc107": "#e4e5e9"} size={30}onMouseEnter={() => setHover(ratingValue)} onMouseLeave={() => setHover(null)} />
                                 </label> 
                                 );
                                 })}
                             </Form.Group>
-                            <Button className='mt-2' type="submit">Submit</Button>
+                            <Button className='mt-4' type="submit">Submit</Button>
                         </Form>
                     </div>
                     <div className='col' />
@@ -136,7 +136,7 @@ export default function Reviews(props){
             </div>}
 
         </React.Fragment>
-         );
+        );
 };
 
 

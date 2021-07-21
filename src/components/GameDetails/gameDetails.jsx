@@ -36,7 +36,7 @@ export default function GameDetails(props){
                 <React.Fragment>
                     <div className='row text-center'>
                         <div className='col'/>
-                        <Card style={{ width: '18rem' }}>
+                        <Card className="text-dark" style={{ width: '18rem' }}>
                             <Card.Body>
                                 <Card.Title>{game.name}</Card.Title>
                                 <Card.Text>

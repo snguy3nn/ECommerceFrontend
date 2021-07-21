@@ -62,7 +62,7 @@ export default function Cart(props){
                 <td><Button size='sm' variant='danger' onClick={() => deleteEntry(entry.gameId)}>Remove</Button></td>
             </tr>)})
         return(
-            <Table>
+            <Table className="container bg-secondary text-light" >
                 <thead>
                     <tr>
                         <th>Title</th>
@@ -90,7 +90,7 @@ export default function Cart(props){
                     <p>No items to display.</p> 
                 : 
                 <React.Fragment>
-                    <div className='row'>
+                    <div>
                         {generateCartTable()}
                     </div>
                     <Button variant='success' onClick={() => alert('(Link to checkout page)')}>Checkout</Button>

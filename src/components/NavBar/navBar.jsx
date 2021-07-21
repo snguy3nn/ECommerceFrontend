@@ -26,22 +26,22 @@ export default function NavBar(props){
             {user ? 
             <Navbar className="color-nav" variant="light">
                 <Container>
-                    <Navbar.Brand>Gamebay</Navbar.Brand>
+                    <Navbar.Brand><u><h1>Gamebay</h1></u></Navbar.Brand>
                     <Nav>
-                        <Nav.Item> 
-                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                        <Nav.Item className="text-lg"> 
+                            <Nav.Link as={Link} to="/"><h5>Home</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item> 
-                            <Nav.Link as={Link} to="/newListing">New Listing</Nav.Link>
+                            <Nav.Link as={Link} to="/newListing"><h5>New Listing</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item> 
-                            <Nav.Link as={Link} to="/myListings">My Listings</Nav.Link>
+                            <Nav.Link as={Link} to="/myListings"><h5>My Listings</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Nav.Link>
+                            <Nav.Link as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}><h5>All Listings</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
-                            <Nav.Link as={Link} to="/cart">My Cart</Nav.Link>
+                            <Nav.Link as={Link} to="/cart"><h5>My Cart</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item>
                             {!redirect ? <Button variant='danger' onClick={() => logout()} >Logout {user.username}</Button> : <Redirect to='/'/>}
@@ -53,16 +53,16 @@ export default function NavBar(props){
             :
             <Navbar className="color-nav" variant="light">
                 <Container>
-                    <Navbar.Brand>Gamebay<img src="../gamebay.png" alt="logo"/></Navbar.Brand>
+                    <Navbar.Brand><u><h1>Gamebay</h1></u></Navbar.Brand>
                     <Nav>
-                        <Nav.Item> 
-                            <Nav.Link as={Link} to="/">Home</Nav.Link>
+                    <Nav.Item> 
+                            <Nav.Link as={Link} to="/"><h5>Home</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item> 
-                            <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            <Nav.Link as={Link} to="/login"><h5>Login</h5></Nav.Link>
                         </Nav.Item>
                         <Nav.Item> 
-                            <Nav.Link as={Link} to="/register">Register</Nav.Link>
+                            <Nav.Link as={Link} to="/register"><h5>Register</h5></Nav.Link>
                         </Nav.Item>
                     </Nav>
                 </Container>
