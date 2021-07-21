@@ -52,7 +52,6 @@ export default function NewListing(props){
         }
         try{
             let response = await axios.post('https://localhost:44394/api/games', newGame, { headers: {Authorization: 'Bearer ' + token}});
-            console.log(response.data)
             setNewGameId(response.data.gameId);
             setRedirect(true);
         }

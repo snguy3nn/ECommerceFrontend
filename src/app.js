@@ -9,6 +9,7 @@ import NewListing from './components/NewListing/newListing';
 import NavBar from './components/NavBar/navBar';
 import Cart from './components/Cart/cart';
 import GameDetails from './components/GameDetails/gameDetails';
+import MyListings from './components/MyListings/myListings';
 
 
 
@@ -59,6 +60,16 @@ export default function App(){
                         }
                         else{
                             return <Cart {...props} user={user}/>
+                        }
+                    }} />
+                <Route 
+                    path='/myListings' 
+                    render={props => {
+                        if (!user){
+                            return <Redirect to="/" />;
+                        }
+                        else{
+                            return <MyListings {...props} user={user}/>
                         }
                     }} />
             </Switch>

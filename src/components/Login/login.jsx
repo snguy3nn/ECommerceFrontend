@@ -21,31 +21,34 @@ export default function Login(props){
             setRedirect(true);
         }
         catch(err){
-            // if (err.response.status && err.response.status === 401){
-            alert(err);
+            if (typeof err.response.status !== 'undefined' && err.response.status === 401){
+                alert('Invalid credentials!');
+            }
+            else{alert(err)};
         }
     }
 
     return(
         <React.Fragment>
             {!redirect ? 
-            <React.Fragment>
-            <div className="container">
-                <h1>Login</h1>
-                <Form onSubmit={handleSubmit}>
-                    <Form.Group controlId="username">
-                        <Form.Label>Username</Form.Label>
-                        <Form.Control type="text" name="username" onChange={handleChange} value={values.username} required={true} />
-                    </Form.Group>
-                    <Form.Group controlId="password">
-                        <Form.Label>Password</Form.Label>
-                        <Form.Control type="password" name="password" onChange={handleChange} value={values.password} required={true} />
-                    </Form.Group>
-                    <br/>
-                    <Button type="submit">Login</Button>
-                </Form>
-            </div>   
-            </React.Fragment>
+            <div className='row'>
+                <div className='col' />
+                <div className='col' >
+                    <h1>Login</h1>
+                    <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="username">
+                            <Form.Label>Username</Form.Label>
+                            <Form.Control type="text" name="username" onChange={handleChange} value={values.username} required={true} />
+                        </Form.Group>
+                        <Form.Group controlId="password">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" name="password" onChange={handleChange} value={values.password} required={true} />
+                        </Form.Group>
+                        <Button className='mt-2' type="submit">Login</Button>
+                    </Form>
+                </div>
+                <div className='col' />
+            </div>
             :
             <Redirect to="/" />}
         </React.Fragment>

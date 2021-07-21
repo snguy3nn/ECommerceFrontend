@@ -28,6 +28,12 @@ export default function NavBar(props){
                         <Nav.Item> 
                             <Nav.Link as={Link} to="/newListing">New Listing</Nav.Link>
                         </Nav.Item>
+                        <Nav.Item> 
+                            <Nav.Link as={Link} to="/myListings">My Listings</Nav.Link>
+                        </Nav.Item>
+                        <Nav.Item>
+                            <Nav.Link as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Nav.Link>
+                        </Nav.Item>
                         <Nav.Item>
                             <Nav.Link as={Link} to="/cart">My Cart</Nav.Link>
                         </Nav.Item>

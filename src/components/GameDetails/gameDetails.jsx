@@ -14,24 +14,26 @@ export default function GameDetails(props){
         const jwt = localStorage.getItem('token');
         setToken(jwt);
         getGame();
-    })
+    }, [])
 
     async function getGame(){
-        try{
-            let response = await axios.get(`https://localhost:44394/api/games/${props.location.state.gameId}`);
-            setGame(response.data);
-        }
-        catch(err){
-            alert(err);
+        if(typeof props.location.state !== 'undefined'){
+            try{
+                let response = await axios.get(`https://localhost:44394/api/games/${props.location.state.gameId}`);
+                setGame(response.data);
+            }
+            catch(err){
+                alert(err);
+            }
         }
     }
 
     return(
         <React.Fragment>
-            {props.location.state.gameId ? 
-            <div className='text-center'>
+            {props.location.state ? 
+            <div>
                 {game && 
-                <div className='row'>
+                <div className='row text-center'>
                     <div className='col'/>
                     <Card style={{ width: '18rem' }}>
                         <Card.Body>
@@ -39,16 +41,19 @@ export default function GameDetails(props){
                             <Card.Text>
                                 <p>"{game.description}"</p>
                                 <p>Platform: {game.platform.name}</p>
+                                <p>Sold by {game.seller}</p>
                                 <h6>${game.price}</h6>
                             </Card.Text>
-                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Back to results</Button>
+                            {props.location.state.searchQuery && 
+                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: props.location.state.searchQuery, showAll: false}}}>Back to Results</Button>}
+                            {!props.location.state.searchQuery && 
+                            <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Button>}
                         </Card.Body>
                     </Card>
                     <div className='col'/>
                 </div>
                 }
-                {token ? 
-                <Reviews gameId={props.location.state.gameId} /> : <p>Log in to see reviews.</p>}
+                {token ? <Reviews gameId={props.location.state.gameId} /> : <p className='text-center'>Log in to see reviews.</p>}
             </div>
             :
             <Redirect to="/" />

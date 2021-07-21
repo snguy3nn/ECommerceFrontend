@@ -1,20 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Table, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 
 export default function SearchResults(props){
 
     const [results, setResults] = useState(null);
     const [gamesInCart, setGamesInCart] = useState(null);
 
-    useEffect(() => {runSearch(); getCart();}, []);
+    useEffect(() => {
+        if(typeof props.location.state !== 'undefined'){
+            runSearch()
+        }
+    }, [props]);
 
     async function runSearch(){
         if (!props.location.state.showAll){
             try {
                 let response = await axios.get(`https://localhost:44394/api/games/title=${props.location.state.searchQuery}`);
-                // console.log(response.data);
                 setResults(response.data);
             }
             catch(err){
@@ -30,17 +33,21 @@ export default function SearchResults(props){
                 alert(err);
             }
         }
+        getCart();
     }
 
     async function getCart(){
-        try{
-            const jwt = localStorage.getItem('token');
-            let response = await axios.get(`https://localhost:44394/api/cart`, { headers: {Authorization: 'Bearer ' + jwt}});
-            let entries = response.data;
-            setGamesInCart(entries);
-        }
-        catch(err){
-        alert(err);
+        const jwt = localStorage.getItem('token');
+        if (jwt !== null){
+            try{
+                
+                let response = await axios.get(`https://localhost:44394/api/cart`, { headers: {Authorization: 'Bearer ' + jwt}});
+                let entries = response.data;
+                setGamesInCart(entries);
+            }
+            catch(err){
+            alert(err);
+            }
         }
     }
 
@@ -59,7 +66,6 @@ export default function SearchResults(props){
             else{
                 let selectedGame = gamesInCart.filter(g => g.gameId === gameId);
                 selectedGame = selectedGame[0];
-                console.log(jwt);
                 let response = await axios.put(`https://localhost:44394/api/cart/edit/gameId_${gameId}`, {Quantity: (selectedGame.quantity + 1)}, { headers: {Authorization: 'Bearer ' + jwt}});
                 if (response.status === 200){
                     alert(`Added "${selectedGame.gameTitle}" to cart! New quantity: ${selectedGame.quantity + 1}`);
@@ -77,16 +83,25 @@ export default function SearchResults(props){
     function generateTable(){
         let tableBody = results.map(entry => {
             return(
-            <tr key={entry.name}>
+            <tr key={entry.gameId}>
                 <td>{entry.name}</td>
                 <td>{entry.platform.name}</td>
                 <td>${entry.price}</td>
+                {props.user ?
+                <React.Fragment>
+                    {entry.userId !== props.user.id ? <td>{entry.seller}</td> : <td><strong>{entry.seller} (you)</strong></td>}
+                </React.Fragment>
+                :
+                <td>{entry.seller}</td>}
                 <td><Button size='sm' as={Link} to={{pathname: '/game', state: { gameId: entry.gameId, searchQuery: props.location.state.searchQuery, showAll: props.location.state.showAll}}}>Details</Button></td>
-                {entry.userId !== props.user.id ? 
-                <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
-                : <td>Cannot add your own listing to cart.</td>
-                }
-                
+                {props.user && 
+                <React.Fragment>
+                    {entry.userId !== props.user.id ? 
+                    <td><Button size='sm' variant='success' onClick={() => addToCart(entry.gameId)}>Add to Cart</Button></td>
+                    : <td></td>
+                    }
+                </React.Fragment>
+            }
             </tr>)});
 
         return(
@@ -96,6 +111,7 @@ export default function SearchResults(props){
                         <th>Title</th>
                         <th>Platform</th>
                         <th>Price</th>
+                        <th>Seller</th>
                         <th></th>
                         <th></th>
                     </tr>
@@ -118,11 +134,15 @@ export default function SearchResults(props){
             {props.location.state ?
             <div>
                 {props.location.state.searchQuery ? <h3>"{props.location.state.searchQuery}"</h3> : <h3>View All Listings</h3>}
-                {results && 
-                generateTable()}
+                {results ?
+                <React.Fragment>
+                    {results.length > 0 ? generateTable() : <p>No items to display.</p>}
+                </React.Fragment>
+                :
+                <p>Loading...</p>}
             </div>
             :
-            <p>This gets rendered if you go to /searchResults without actually running a search. We can replace this with a Redirect back to the home page.</p>}
+            <Redirect to="/" />}
         
         </div>
     )

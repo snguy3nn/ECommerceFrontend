@@ -15,7 +15,7 @@ export default function Cart(props){
         catch(err){
             alert(err)
         }
-    },[] )
+    },[]);
 
     async function getCart(jwt){
         try{
@@ -43,7 +43,6 @@ export default function Cart(props){
             try{
                 const jwt = localStorage.getItem('token');
                 let response = await axios.delete(`https://localhost:44394/api/cart/delete/gameId_${gameId}`, { headers: {Authorization: 'Bearer ' + jwt}});
-                console.log(response);
                 getCart(jwt);
             }
             catch(err){
@@ -53,7 +52,6 @@ export default function Cart(props){
     }
 
     function generateCartTable(){
-        //gameTitle, seller, quantity,
         let tableBody = cartEntries.map(entry => {
             return(
             <tr key={entry.gameTitle}>
@@ -85,8 +83,13 @@ export default function Cart(props){
     return(
         <div className='text-center'>
             <h1>My Cart</h1>
-            {cartEntries && 
-            generateCartTable()}
+            {cartEntries ? 
+            <React.Fragment>
+                {cartEntries.length === 0 ? <p>No items to display.</p> : generateCartTable()}
+            </React.Fragment>
+            :
+            <p>Loading...</p>
+            }
         </div>
     )
 }
