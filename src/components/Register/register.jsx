@@ -19,7 +19,7 @@ export default function Register(){
             setRedirect(true);
         }
         catch(err){
-            console.log(err);
+            alert(err);
         }
         
     }
