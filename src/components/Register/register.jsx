@@ -5,6 +5,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import { Redirect } from 'react-router';
 import { useState } from 'react';
+import './register.css';
 
 export default function Register(){
     const { values, handleChange, handleSubmit } = useForm(submitForm);
