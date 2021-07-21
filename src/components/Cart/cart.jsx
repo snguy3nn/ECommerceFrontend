@@ -85,7 +85,17 @@ export default function Cart(props){
             <h1>My Cart</h1>
             {cartEntries ? 
             <React.Fragment>
-                {cartEntries.length === 0 ? <p>No items to display.</p> : generateCartTable()}
+                {cartEntries.length === 0 
+                ? 
+                    <p>No items to display.</p> 
+                : 
+                <React.Fragment>
+                    <div className='row'>
+                        {generateCartTable()}
+                    </div>
+                    <Button variant='success' onClick={() => alert('(Link to checkout page)')}>Checkout</Button>
+                </React.Fragment>
+                }
             </React.Fragment>
             :
             <p>Loading...</p>
