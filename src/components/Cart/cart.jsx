@@ -62,7 +62,7 @@ export default function Cart(props){
                 <td><Button size='sm' variant='danger' onClick={() => deleteEntry(entry.gameId)}>Remove</Button></td>
             </tr>)})
         return(
-            <Table>
+            <Table className="container bg-secondary text-light">
                 <thead>
                     <tr>
                         <th>Title</th>

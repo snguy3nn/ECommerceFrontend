@@ -105,7 +105,7 @@ export default function SearchResults(props){
             </tr>)});
 
         return(
-            <Table>
+            <Table className="container bg-secondary text-light">
                 <thead>
                     <tr>
                         <th>Title</th>

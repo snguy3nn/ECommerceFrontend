@@ -35,7 +35,7 @@ export default function GameDetails(props){
                 {game && 
                 <div className='row text-center'>
                     <div className='col'/>
-                    <Card style={{ width: '18rem' }}>
+                    <Card className="text-dark" style={{ width: '18rem' }}>
                         <Card.Body>
                             <Card.Title>{game.name}</Card.Title>
                             <Card.Text>
@@ -50,6 +50,7 @@ export default function GameDetails(props){
                             <Button as={Link} to={{pathname: '/searchResults', state: { searchQuery: null, showAll: true}}}>All Listings</Button>}
                         </Card.Body>
                     </Card>
+                    
                     <div className='col'/>
                 </div>
                 }

@@ -56,7 +56,7 @@ export default function MyListings(props){
                 <td><Button size='sm' variant='danger' onClick={() => deleteGame(entry)}>Delete Listing</Button></td>
             </tr>)});
         return(
-            <Table>
+            <Table className="container bg-secondary text-light">
                 <thead>
                     <tr>
                         <th>Title</th>
